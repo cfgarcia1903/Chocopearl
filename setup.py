@@ -15,7 +15,7 @@ LONG_DESCRIPTION = 'A library that amalgamates various tools for numerical metho
 setup(
     name="chocopearl",
     version=VERSION,
-    author="Lodbrok (Francisco García)",
+    author="FranciscoLodbrok (Francisco García)",
     author_email="<cfgarcia1903@gmail.com>",
     description=DESCRIPTION,
     long_description_content_type="text/markdown",
