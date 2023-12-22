@@ -13,7 +13,7 @@ LONG_DESCRIPTION = 'A library that amalgamates various tools for numerical metho
 
 # Setting up
 setup(
-    name="confinedfunctionalitiespkg",
+    name="chocopearl",
     version=VERSION,
     author="Lodbrok (Francisco García)",
     author_email="<cfgarcia1903@gmail.com>",
