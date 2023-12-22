@@ -2,7 +2,18 @@ import numpy as np
 import pandas as pd
 import warnings
 
-def txt_to_df(path,xlims=None,ylims=None,inclined=True):
+def corsikatxt_to_df(path,xlims=None,ylims=None,inclined=False):
+    '''
+    corsikatxt_to_df() reads a corsika DAT file that is already in txt format and organizes the particle entries in a Pandas DataFrame.
+    
+    path                     : Path of the dat#.txt file
+    xlims=(x_low, x_high)    : Two item tupple containing lower and upper limits of the position value along X axis
+    ylims=(y_low, y_high)    : Two item tupple containing lower and upper limits of the position value along Y axis
+    inclined=False           : Boolean value. indicates wether or not the dat#.txt file corresponds to an inclined observation plane.
+                               if True, it will change the X and Y axis (read documentation for visual reference). Note that this change
+                               must be taken into account when specifying xlims and ylims
+
+    '''
     # Lists to save the data
     ids = []
     x_values = []
@@ -77,7 +88,6 @@ def txt_to_df(path,xlims=None,ylims=None,inclined=True):
     
     return all_data
 
-
 def search_detector(x,y,detector_grid_list,tol):
     '''
     search_detector(x,y,detector_grid_array,tol) finds which detector does a particle hit (in case it hits a detector) 
@@ -102,7 +112,6 @@ def search_detector(x,y,detector_grid_list,tol):
             return (det[0],det[1])
     return np.nan
    
-
 def assign_to_detector(det_position,df,tol,pf_tol=(None,None)):
     '''
     given a detector position and a tolerance (radius), assign_to_detector(det_position,df,tol) filters the particles that fall
