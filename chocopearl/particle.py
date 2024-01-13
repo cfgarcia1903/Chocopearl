@@ -7,8 +7,8 @@ def corsikatxt_to_df(path,xlims=None,ylims=None,inclined=False):
     corsikatxt_to_df() reads a corsika DAT file that is already in txt format and organizes the particle entries in a Pandas DataFrame.
     
     path                     : Path of the dat#.txt file
-    xlims=(x_low, x_high)    : Two item tupple containing lower and upper limits of the position value along X axis
-    ylims=(y_low, y_high)    : Two item tupple containing lower and upper limits of the position value along Y axis
+    xlims=(x_low, x_high)    : Two item tupple containing lower and upper limits of the position value along X axis (in metres)
+    ylims=(y_low, y_high)    : Two item tupple containing lower and upper limits of the position value along Y axis (in metres)
     inclined=False           : Boolean value. indicates wether or not the dat#.txt file corresponds to an inclined observation plane.
                                if True, it will change the X and Y axis (read documentation for visual reference). Note that this change
                                must be taken into account when specifying xlims and ylims
@@ -35,8 +35,8 @@ def corsikatxt_to_df(path,xlims=None,ylims=None,inclined=False):
 
                 # Extrae los valores que contienen 'x=', 'y=', 't=', etc.
                 id_valor = int(partes[1])
-                x_valor = float(partes[2].split('=')[1])/(100)   #en kilometros
-                y_valor = float(partes[3].split('=')[1])/(100)   #en kilometros          
+                x_valor = float(partes[2].split('=')[1])/(100)   #en metros
+                y_valor = float(partes[3].split('=')[1])/(100)   #en metros          
                 t_valor = float(partes[4].split('=')[1])
                 px_valor = float(partes[5].split('=')[1])
                 py_valor = float(partes[6].split('=')[1])
