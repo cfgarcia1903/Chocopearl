@@ -1,6 +1,6 @@
 from datetime import timedelta
 
-def input_yn(yes='y',no='n',alt_yes=[],alt_no=[],promt='',bad_input_msg=None):   #retorna True o False
+def input_yn(yes='y',no='n',alt_yes=[],alt_no=[],prompt='',bad_input_msg=None):   #retorna True o False
     alt_yes.append(yes)
     alt_no.append(no)
     if bad_input_msg==None:
