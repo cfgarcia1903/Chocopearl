@@ -7,7 +7,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
     long_description = "\n" + fh.read()
 
-VERSION = '0.0.1'
+VERSION = '0.0.4'
 DESCRIPTION = 'General Purpose/Physics tools'
 LONG_DESCRIPTION = 'A library that amalgamates various tools for numerical methods, astroparticle physics simulation analysis, and general-purpose functionalities.'
 

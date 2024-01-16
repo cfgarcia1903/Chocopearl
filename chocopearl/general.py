@@ -6,7 +6,7 @@ def input_yn(yes='y',no='n',alt_yes=[],alt_no=[],prompt='',bad_input_msg=None): 
     if bad_input_msg==None:
         bad_input_msg='Type '+yes+' (yes) or '+no+' (no)\n'
     while True:
-        flag=input(prompt+'['+ yes+'/'+no']: ')
+        flag=input(f'{prompt}[{yes}/{no}]: ')
         if flag in alt_yes:
             return True
         elif flag in alt_no:
