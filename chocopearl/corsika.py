@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import warnings
 
-def corsikatxt_to_df(path,xlims=None,ylims=None,inclined=False):
+def corsikatxt_to_df(path,xlims=None,ylims=None,inclined=False,add_detector_column=False):
     '''
     corsikatxt_to_df() reads a corsika DAT file that is already in txt format and organizes the particle entries in a Pandas DataFrame.
     
@@ -12,7 +12,7 @@ def corsikatxt_to_df(path,xlims=None,ylims=None,inclined=False):
     inclined=False           : Boolean value. indicates wether or not the dat#.txt file corresponds to an inclined observation plane.
                                if True, it will change the X and Y axis (read documentation for visual reference). Note that this change
                                must be taken into account when specifying xlims and ylims
-
+    add_detector_column=False: Boolean value. Adds a column called 'detector' with the default value np.nan
     '''
     # Lists to save the data
     ids = []
@@ -27,13 +27,18 @@ def corsikatxt_to_df(path,xlims=None,ylims=None,inclined=False):
     lev_values = []
 
     # accessing the .txt
-    with open(path, 'r') as archivo:
-        for linea in archivo:
+    with open(path, 'r') as file:
+        file=list(file)
+        dat_header_end = file.index('---------------------------------\n') + 1
+        shower_header_end = file.index('---------------------------------\n', dat_header_end)
+        particles_info_lines = file[shower_header_end:]
+
+        for linea in particles_info_lines:
             try:
-                # Divide la línea en partes usando el espacio como separador
+                # Divides each line in its parts using spaces as separators
                 partes = linea.split()
 
-                # Extrae los valores que contienen 'x=', 'y=', 't=', etc.
+                # gets the values of 'x=', 'y=', 't=', etc.
                 id_valor = int(partes[1])
                 x_valor = float(partes[2].split('=')[1])/(100)   #en metros
                 y_valor = float(partes[3].split('=')[1])/(100)   #en metros          
@@ -51,7 +56,7 @@ def corsikatxt_to_df(path,xlims=None,ylims=None,inclined=False):
                 lev_valor = int(partes[10].split('=')[1])
 
                 #if (det_X_inf<=x_valor<=det_X_sup) and (det_Y_inf<=y_valor<=det_Y_sup):
-                    # Agrega los valores a las listas
+                    # adds values to the lists (not efficient)
                 ids.append(id_valor)
                 x_values.append(x_valor)
                 y_values.append(y_valor)
@@ -65,22 +70,37 @@ def corsikatxt_to_df(path,xlims=None,ylims=None,inclined=False):
             except:
                 pass
 
-    # Crea un DataFrame de Pandas
-    data = {
-        'id': ids,
-        'x': x_values,
-        'y': y_values,
-        't': t_values,
-        'px': px_values,
-        'py': py_values,
-        'pz': pz_values,
-        'ek': ek_values,
-        'w': w_values,
-        'lev': lev_values,
-        'detector': np.nan
-    }
-
-    all_data = pd.DataFrame(data).astype({'detector':object})
+    # Creates a Pandas Dataframe
+    if add_detector_column:
+        data = {
+            'id': ids,
+            'x': x_values,
+            'y': y_values,
+            't': t_values,
+            'px': px_values,
+            'py': py_values,
+            'pz': pz_values,
+            'ek': ek_values,
+            'w': w_values,
+            'lev': lev_values,
+            'detector': np.nan
+        }
+        all_data = pd.DataFrame(data).astype({'detector':object})
+    else:
+        data = {
+            'id': ids,
+            'x': x_values,
+            'y': y_values,
+            't': t_values,
+            'px': px_values,
+            'py': py_values,
+            'pz': pz_values,
+            'ek': ek_values,
+            'w': w_values,
+            'lev': lev_values,
+        }
+        all_data = pd.DataFrame(data)
+    # filters data 
     if xlims != None:
         all_data = all_data[(all_data['x']>= xlims[0]) & (all_data['x']<= xlims[1])].reset_index(drop=True)
     if ylims != None:
