@@ -49,6 +49,6 @@ def format_time(seconds,return_as='string'):
     if return_as=='str':
         time_string = " ".join(components)
         return time_string
-    if return_as =='dict'
+    if return_as == 'dict':
         return {'D':days,'H':hours,'M':minutes,'S':seconds}
 
