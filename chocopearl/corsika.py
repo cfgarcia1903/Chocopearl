@@ -110,14 +110,15 @@ def corsikatxt_to_df(path,xlims=None,ylims=None,inclined=False,add_detector_colu
 
 def search_detector(x,y,detector_grid_list,tol):
     '''
-    search_detector(x,y,detector_grid_array,tol) finds which detector does a particle hit (in case it hits a detector) 
+    ---|Geometric Filtering|---
+    search_detector(x,y,detector_grid_array,tol) finds which circular detector does a particle hit (in case it hits a detector) 
     and returns it's position or np.Nan (if the particle does not hit a detector)
     
     the parameters are:
     x:                    the position x of the particle
     y:                    the position y of the particle
     detector_grid_list:   a list of tuples containing the detector positions
-    tol:                  a tolerance for particle detection (radius of the detector)
+    tol:                  radius of the detector
     
     '''
     detector_grid_list=np.asarray(detector_grid_list)
@@ -134,6 +135,7 @@ def search_detector(x,y,detector_grid_list,tol):
    
 def assign_to_detector(det_position,df,tol,pf_tol=(None,None)):
     '''
+    ---|Geometric Filtering|---
     given a detector position and a tolerance (radius), assign_to_detector(det_position,df,tol) filters the particles that fall
     inside that given detector and updates the dataframe of particles, assigning the
     detector position to the 'detector' column of those entries that fall inside the detector
@@ -165,3 +167,41 @@ def assign_to_detector(det_position,df,tol,pf_tol=(None,None)):
         else:
             df.drop(index, inplace=True, axis=0)
     return df    
+
+def get_shower_info(file_path,keywords=None):
+    '''
+    Reads a corsika txt file and outputs the shower parameters
+    The corsika txt file must be modified 
+
+    Credits: Fiorella Ortiz
+    '''
+    if keywords is None:
+        keywords = ["PRMPAR =", "PRME =", "THETAP =", "PHIP ="]
+    else:
+        for i in range(len(keywords)):
+            keywords[i]=keywords[i]+' ='
+
+    shower_info = {}
+
+    # Open the file and read it line by line
+    with open(file_path, 'r') as file:
+        for line in file:
+            for keyword in keywords:
+                # Look for the keyword followed by a number
+                if keyword in line:
+                    # Find the number next to the keyword
+                    keyword_index = line.index(keyword)
+                    number_start = keyword_index + len(keyword)
+                    
+                    # Find the number after the keyword
+                    number = ""
+                    for char in line[number_start:]:
+                        if char.isdigit() or char == '.':
+                            number += char
+                        else:
+                            break
+                    if number:
+                        shower_info[keyword[:-2]] = float(number) if '.' in number else int(number)
+                        
+    return shower_info
+
