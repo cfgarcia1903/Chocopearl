@@ -7,7 +7,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 with codecs.open(os.path.join(here, "README.md"), encoding="utf-8") as fh:
     long_description = "\n" + fh.read()
 
-VERSION = '0.0.4'
+VERSION = '1.0.0'
 DESCRIPTION = 'General Purpose/Physics tools'
 LONG_DESCRIPTION = 'A library that amalgamates various tools for numerical methods, astroparticle physics simulation analysis, and general-purpose functionalities.'
 
@@ -24,7 +24,7 @@ setup(
     install_requires=['numpy', 'pandas'],
     keywords=['python', 'physics', 'general', 'corsika', 'astroparticle', 'numerical methods'],
     classifiers=[
-        "Development Status :: 1 - Planning",
+        "Development Status :: 2 - Pre-Alpha",
         "Intended Audience :: Science/Research",
         "Programming Language :: Python :: 3",
         "Operating System :: Microsoft :: Windows",
