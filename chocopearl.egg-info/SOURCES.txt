@@ -2,10 +2,11 @@ LICENSE
 README.md
 setup.py
 chocopearl/__init__.py
+chocopearl/corsika.py
 chocopearl/dirac.py
 chocopearl/general.py
 chocopearl/nummath.py
-chocopearl/particle.py
+chocopearl/osfunc.py
 chocopearl/relativity.py
 chocopearl.egg-info/PKG-INFO
 chocopearl.egg-info/SOURCES.txt
