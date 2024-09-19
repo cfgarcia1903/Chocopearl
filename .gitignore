@@ -1,0 +1,7 @@
+
+/dist
+/chocopearl.egg-info
+/build
+/.vscode
+/.ipynb_checkpoints
+/setup.py
