@@ -8,6 +8,7 @@ chocopearl/general.py
 chocopearl/nummath.py
 chocopearl/osfunc.py
 chocopearl/relativity.py
+chocopearl/stats.py
 chocopearl.egg-info/PKG-INFO
 chocopearl.egg-info/SOURCES.txt
 chocopearl.egg-info/dependency_links.txt
