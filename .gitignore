@@ -5,3 +5,5 @@
 /.vscode
 /.ipynb_checkpoints
 /setup.py
+/old
+/.gitignore
