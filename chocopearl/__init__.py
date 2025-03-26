@@ -33,6 +33,7 @@ from . import nummath
 from . import relativity
 from . import osfunc
 from . import stats
+from . import analytics
 #from . import dirac
 
 from .corsika import *
@@ -41,4 +42,5 @@ from .nummath import *
 from .osfunc import *
 from .relativity import *
 from .stats import *
+from .analytics import *
 #from .dirac import *

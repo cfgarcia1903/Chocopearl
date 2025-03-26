@@ -45,7 +45,6 @@ def add_step_histogram(fig, bins, hist,name=None,legendgroup=None, color='blue')
 
     return fig
 
-
 def symmetry_hist(data, center=0, bin_num=None, bin_size=None,density=False):
     if bool(bin_num) == bool(bin_size):
         raise Exception("bins and bin_size parameters can't be both used at the same time")
